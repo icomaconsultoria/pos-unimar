@@ -8,7 +8,7 @@ export class CreateUserUseCase {
     public async execute(dto: CreateUserDTO): Promise<User> {
         const existingUser = await this.userRepository.findById(dto.id)
         if (existingUser) {
-            throw new Error("User with this ID already exists.")
+            return existingUser
         }
 
         const user = new User(
