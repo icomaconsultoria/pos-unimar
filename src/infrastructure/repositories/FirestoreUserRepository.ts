@@ -12,6 +12,7 @@ export class FirestoreUserRepository implements UserRepository {
     const data = doc.data() as any;
     const createdAt = data.createdAt ? data.createdAt.toDate() : new Date();
     return new User(doc.id, data.email, data.displayName, createdAt, data.photoUrl);
+
   }
 
   async findByEmail(email: string): Promise<User | null> {

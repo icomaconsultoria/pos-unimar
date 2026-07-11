@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userRoutes = void 0;
+const express_1 = require("express");
+const UserController_1 = require("../controllers/UserController");
+const FirestoreUserRepository_1 = require("../../../infrastructure/repositories/FirestoreUserRepository");
+const CreateUserUseCase_1 = require("../../../application/use-cases/CreateUserUseCase");
+const router = (0, express_1.Router)();
+exports.userRoutes = router;
+const userRepository = new FirestoreUserRepository_1.FirestoreUserRepository();
+const createUserUseCase = new CreateUserUseCase_1.CreateUserUseCase(userRepository);
+const userController = new UserController_1.UserController(createUserUseCase);
+router.post('/', (req, res) => userController.createUser(req, res));

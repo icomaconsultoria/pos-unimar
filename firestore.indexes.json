@@ -1,4 +1,9 @@
 {
+<<<<<<< HEAD
   "indexes": [],
   "fieldOverrides": []
+=======
+    "indexes":[],
+    "fieldOverrides":[]
+>>>>>>> upstream/main
 }

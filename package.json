@@ -1,7 +1,16 @@
 {
   "name": "pos-unimar",
   "version": "1.0.0",
+<<<<<<< HEAD
   "description": "backend API NodeJS DDD MIT User ans Site Platform ",
+=======
+  "description": "backend API NodeJS DDD MIT User and Site Platform",
+  "keywords": [
+    "DDD",
+    "User",
+    "Platform"
+  ],
+>>>>>>> upstream/main
   "homepage": "https://github.com/icomaconsultoria/pos-unimar#readme",
   "bugs": {
     "url": "https://github.com/icomaconsultoria/pos-unimar/issues"
@@ -11,14 +20,22 @@
     "url": "git+https://github.com/icomaconsultoria/pos-unimar.git"
   },
   "license": "ISC",
+<<<<<<< HEAD
   "author": "Erick Andrade Penaquine",
+=======
+  "author": "Victor Icoma",
+>>>>>>> upstream/main
   "type": "commonjs",
   "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
+<<<<<<< HEAD
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+=======
+    "dev": "tsx watch src/index.ts",
+>>>>>>> upstream/main
     "build": "tsc",
     "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -28,7 +45,11 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "firebase": "^12.16.0",
+<<<<<<< HEAD
     "firebase-admin": "^14.1.0",
+=======
+    "firebase-admin": "^10.3.0",
+>>>>>>> upstream/main
     "firebase-tools": "^14.23.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
@@ -37,7 +58,11 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+<<<<<<< HEAD
     "@types/node": "^26.1.1",
     "typescript": "^5.6.3"
+=======
+    "@types/node": "^26.1.1"
+>>>>>>> upstream/main
   }
 }

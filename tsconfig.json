@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "compilerOptions": {
         "target": "ES2022",
         "module": "CommonJS",
@@ -19,4 +20,21 @@
         "node_modules",
         "**/*.spec.ts"
     ]
+=======
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+>>>>>>> upstream/main
 }

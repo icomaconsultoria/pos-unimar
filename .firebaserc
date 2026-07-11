@@ -1,5 +1,9 @@
 {
   "projects": {
+<<<<<<< HEAD
     "default": "pos-unimar-d4e11"
+=======
+    "default": "pos-unimar-26765"
+>>>>>>> upstream/main
   }
 }

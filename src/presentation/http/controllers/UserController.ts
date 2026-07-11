@@ -7,6 +7,7 @@ export class UserController {
         try {
             const { id, email, displayName, password, photoUrl } = req.body
             const user = await this.createUserUseCase.execute({ id, email, displayName, password, photoUrl })
+
             res.status(201).json(user)
         } catch (error: any) {
             if (error.message === "User already exists") {

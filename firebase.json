@@ -16,6 +16,7 @@
       "enabled": true
     },
     "singleProjectMode": true
+<<<<<<< HEAD
   },
   "auth": {
     "providers": {
@@ -24,5 +25,7 @@
         "supportEmail": "support@undefined.firebaseapp.com"
       }
     }
+=======
+>>>>>>> upstream/main
   }
 }
