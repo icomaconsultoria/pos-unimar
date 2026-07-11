@@ -3,6 +3,10 @@
 Este projeto é uma API backend desenvolvida em **Node.js** com **TypeScript**, utilizando o banco de dados **Firebase Firestore**. A arquitetura do projeto foi desenhada seguindo os princípios de **Domain-Driven Design (DDD)** e arquitetura limpa (Clean Architecture), promovendo a separação de responsabilidades e alto desacoplamento.
 
 ## 🏗️ Desenho da Arquitetura (Domain-Driven Design)
+<img width="1137" height="697" alt="image" src="https://github.com/user-attachments/assets/036fc7d4-3628-4aea-94a3-4f895df962a1" />
+
+<img width="566" height="650" alt="image" src="https://github.com/user-attachments/assets/ee756269-f90b-46f3-9cc5-341995f18978" />
+
 
 O projeto é dividido em quatro camadas principais, de acordo com o padrão DDD:
 
