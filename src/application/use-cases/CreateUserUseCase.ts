@@ -1,6 +1,6 @@
 import { User } from "../../domain/entities/User"
 import { AuthService } from "../../domain/services/AuthService"
-import { GitHubProfileProvdier } from "../../domain/services/GitHubProfileProvider"
+import { GitHubProfileProvider } from "../../domain/services/GitHubProfileProvider"
 import { UserRepository } from "../../domain/repositories/UserRepository"
 import { CreateUserDTO } from "../dtos/CreateUserDTO"
 
@@ -8,7 +8,7 @@ export class CreateUserUseCase {
     constructor(
         private readonly userRepository: UserRepository,
         private readonly authService: AuthService,
-        private readonly githubProfileProvider: GitHubProfileProvdier
+        private readonly githubProfileProvider: GitHubProfileProvider
     ) { }
 
     public async execute(dto: CreateUserDTO): Promise<User> {
