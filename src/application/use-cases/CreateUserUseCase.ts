@@ -29,6 +29,7 @@ export class CreateUserUseCase {
             dto.displayName,
             dto.id
         )
+        
         const user = new User(
             dto.id,
             dto.email,
