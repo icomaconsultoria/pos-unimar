@@ -4,6 +4,7 @@ export class User {
         public email: string,
         public displayName: string,
         public createdAt: Date,
+        public avatar: string,
     ) { }
 
     public updateDisplayName(name: string) {

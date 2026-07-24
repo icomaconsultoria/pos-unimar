@@ -2,11 +2,13 @@ import { User } from "../../domain/entities/User"
 import { AuthService } from "../../domain/services/AuthService"
 import { UserRepository } from "../../domain/repositories/UserRepository"
 import { CreateUserDTO } from "../dtos/CreateUserDTO"
+import { GithubService } from "../../domain/services/GithubService"
 
 export class CreateUserUseCase {
     constructor(
         private readonly userRepository: UserRepository,
-        private readonly authService: AuthService
+        private readonly authService: AuthService,
+        private readonly githubService: GithubService
     ) { }
 
     public async execute(dto: CreateUserDTO): Promise<User> {
@@ -20,11 +22,14 @@ export class CreateUserUseCase {
             dto.displayName,
             dto.id
         )
+        const avatar = await this.githubService.getAvatar(dto.github);
+        
         const user = new User(
             dto.id,
             dto.email,
             dto.displayName,
-            new Date()
+            new Date(),
+            avatar || ''
         )
         await this.userRepository.save(user)
         return user
