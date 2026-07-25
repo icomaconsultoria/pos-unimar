@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.taskRouter = void 0;
+const express_1 = require("express");
+const TaskController_1 = require("../controllers/TaskController");
+const FirestoreTaskRepository_1 = require("../../../infrastructure/repositories/FirestoreTaskRepository");
+const CreateTaskUseCase_1 = require("../../../application/use-cases/CreateTaskUseCase");
+const router = (0, express_1.Router)();
+exports.taskRouter = router;
+const taskRepository = new FirestoreTaskRepository_1.FirestoreTaskRepository();
+const createTaskUseCase = new CreateTaskUseCase_1.CreateTaskUseCase(taskRepository);
+const taskController = new TaskController_1.TaskController(createTaskUseCase);
+router.post('/', (req, res) => taskController.createTask(req, res));
