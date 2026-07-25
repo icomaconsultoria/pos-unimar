@@ -11,7 +11,7 @@ export class FirestoreUserRepository implements UserRepository {
 
     const data = doc.data() as any;
     const createdAt = data.createdAt ? data.createdAt.toDate() : new Date();
-    return new User(doc.id, data.email, data.displayName, createdAt, data.photoUrl);
+    return new User(doc.id, data.email, data.displayName, createdAt);
   }
 
   async findByEmail(email: string): Promise<User | null> {
@@ -21,7 +21,7 @@ export class FirestoreUserRepository implements UserRepository {
     const doc = snapshot.docs[0];
     const data = doc.data() as any;
     const createdAt = data.createdAt ? data.createdAt.toDate() : new Date();
-    return new User(doc.id, data.email, data.displayName, createdAt, data.photoUrl);
+    return new User(doc.id, data.email, data.displayName, createdAt);
   }
 
   async save(user: User): Promise<void> {
@@ -29,7 +29,7 @@ export class FirestoreUserRepository implements UserRepository {
       email: user.email,
       displayName: user.displayName,
       createdAt: user.createdAt,
-      photoUrl: user.photoUrl
+      ...(user.photoUrl && { photoUrl: user.photoUrl })
     });
   }
 }

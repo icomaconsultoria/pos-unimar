@@ -428,4 +428,5 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
-dist/
+*firebase-adminsdk*.json
+.env.old
