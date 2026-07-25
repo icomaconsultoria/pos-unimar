@@ -3,8 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskController = void 0;
 class TaskController {
     createTaskUseCase;
-    constructor(createTaskUseCase) {
+    getTasksByUsersUseCase;
+    constructor(createTaskUseCase, getTasksByUsersUseCase) {
         this.createTaskUseCase = createTaskUseCase;
+        this.getTasksByUsersUseCase = getTasksByUsersUseCase;
     }
     async createTask(req, res) {
         try {
@@ -27,6 +29,21 @@ class TaskController {
                 console.error(error);
                 res.status(500).json({ error: 'Internal server error' });
             }
+        }
+    }
+    async getTasksByUserEmail(req, res) {
+        try {
+            const email = req.params.email;
+            if (!email) {
+                res.status(409).json({ error: "Error parameter requirer" });
+                return;
+            }
+            const tasks = await this.getTasksByUsersUseCase.execute(email);
+            res.status(200).json(tasks);
+        }
+        catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Internal server error' });
         }
     }
 }
