@@ -7,9 +7,19 @@ dotenv.config();
 
 // Only use emulators if explicitly requested in the environment
 if (process.env.USE_FIREBASE_EMULATOR === 'true') {
-  process.env.FIRESTORE_EMULATOR_HOST = '127.0.0.1:8080';
+  process.env.FIRESTORE_EMULATOR_HOST = '127.0.0.1:8081';
   process.env.FIREBASE_AUTH_EMULATOR_HOST = '127.0.0.1:9099';
 }
+
+console.log(
+  "FIRESTORE EMULATOR:",
+  process.env.FIRESTORE_EMULATOR_HOST
+);
+
+console.log(
+  "AUTH EMULATOR:",
+  process.env.FIREBASE_AUTH_EMULATOR_HOST
+);
 
 initializeApp({
   projectId: process.env.FIREBASE_PROJECT_ID || 'unimar-ddd'
