@@ -9,15 +9,15 @@ export class FirestoreTaskRepository implements TaskRepository {
     const doc = await this.collection.doc(id).get();
     if (!doc.exists) return null;
 
-    return this.mapToTask(doc.id, doc.data()!);
+    return this.mapToTask(doc.id, doc.data());
   }
   async findByAssignedId(assigneeId: string): Promise<Task[]> {
     const snapshot = await this.collection.where('assigneeId', '==', assigneeId).get();
-    return snapshot.docs.map(doc => this.mapToTask(doc.id, doc.data()!));
+    return snapshot.docs.map(doc => this.mapToTask(doc.id, doc.data()));
   }
   async findByCreatorId(creatorId: string): Promise<Task[]> {
     const snapshot = await this.collection.where('creatorId', '==', creatorId).get();
-    return snapshot.docs.map(doc => this.mapToTask(doc.id, doc.data()!));
+    return snapshot.docs.map(doc => this.mapToTask(doc.id, doc.data()));
   }
   async save(task: Task): Promise<void> {
     await this.collection.doc(task.id).set({
