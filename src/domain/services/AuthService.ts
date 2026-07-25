@@ -3,6 +3,7 @@ export interface AuthService {
         email: string,
         password?: string,
         displayName?: string,
-        uid?: string
+        uid?: string,
+        photoUrl?:string
     ): Promise<{ uid: string }>
 }

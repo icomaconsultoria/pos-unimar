@@ -26,7 +26,8 @@ class FirestoreUserRepository {
         await this.collection.doc(user.id).set({
             email: user.email,
             displayName: user.displayName,
-            createdAt: user.createdAt
+            createdAt: user.createdAt,
+            ...(user.photoUrl && { photoUrl: user.photoUrl })
         });
     }
 }

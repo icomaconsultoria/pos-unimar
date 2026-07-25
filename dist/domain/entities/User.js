@@ -6,11 +6,13 @@ class User {
     email;
     displayName;
     createdAt;
-    constructor(id, email, displayName, createdAt) {
+    photoUrl;
+    constructor(id, email, displayName, createdAt, photoUrl) {
         this.id = id;
         this.email = email;
         this.displayName = displayName;
         this.createdAt = createdAt;
+        this.photoUrl = photoUrl;
     }
     updateDisplayName(name) {
         this.displayName = name;
