@@ -5,8 +5,9 @@ export class UserController {
     constructor(private createUserUseCase: CreateUserUseCase) { }
     async createUser(req: Request, res: Response): Promise<void> {
         try {
-            const { id, email, displayName, password } = req.body
-            const user = await this.createUserUseCase.execute({ id, email, displayName, password })
+            const { id, email, displayName, password, githubPhotoUrl, photoUrl } = req.body
+            const finalPhotoUrl = photoUrl || githubPhotoUrl || null
+            const user = await this.createUserUseCase.execute({ id, email, displayName, password, photoUrl: finalPhotoUrl })
             res.status(201).json(user)
         } catch (error: any) {
             if (error.message === "User already exists") {
