@@ -1,4 +1,4 @@
-# Walkthrough: Domínio de Tarefas
+# Domínio de Tarefas
 
 O novo domínio para o gerenciamento de **Tarefas** foi implementado com sucesso! A arquitetura segue a mesma organização de código que você já tinha no projeto, respeitando o padrão DDD.
 
