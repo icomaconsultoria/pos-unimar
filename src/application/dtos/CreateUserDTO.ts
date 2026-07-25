@@ -3,4 +3,5 @@ export interface CreateUserDTO {
     email: string
     password?: string
     displayName: string
+    githubUsername?: string
 }
