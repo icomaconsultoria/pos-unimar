@@ -1,0 +1,123 @@
+name: "CodeQL Advanced"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '30 1 * * 5'
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    permissions:
+      security-events: write
+
+     
+      packages: read
+
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - language: actions
+          build-mode: none
+        - language: javascript-typescript
+          build-mode: none
+        - language: swift
+          build-mode: autobuild
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v4
+      with:
+        languages: ${{ matrix.language }}
+        build-mode: ${{ matrix.build-mode }}
+    - name: Run manual build steps
+      if: matrix.build-mode == 'manual'
+      shell: bash
+      run: |
+        echo 'If you are using a "manual" build mode for one or more of the' \
+          'languages you are analyzing, replace this with the commands to build' \
+          'your code, for example:'
+        echo '  make bootstrap'
+        echo '  make release'
+        exit 1
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v4
+      with:
+        category: "/language:${{matrix.language}}"
+
+  openai-review:
+    name: OpenAI PR Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get PR Diff
+        id: get_diff
+        run: |
+          git diff origin/${{ github.base_ref }}...origin/${{ github.head_ref }} > pr_diff.txt
+          
+      - name: Analyze PR with OpenAI
+        uses: actions/github-script@v7
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const diff = fs.readFileSync('pr_diff.txt', 'utf8');
+            
+            if (!diff.trim()) {
+              console.log("Nenhuma mudança para revisar.");
+              return;
+            }
+            
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                model: 'gpt-4o',
+                messages: [
+                  { 
+                    role: 'system', 
+                    content: `Você é um revisor de código especialista. Utilize as instruções do prompt pmpt_6a52a1571a6c81948b22ccf985761a10071717745c5e4772 para fornecer feedback construtivo sobre o código. Avalie as mudanças e diga se aprova ou se há melhorias necessárias.` 
+                  },
+                  { role: 'user', content: `Aqui está o diff das mudanças:\n\n${diff}` }
+                ]
+              })
+            });
+            
+            const data = await response.json();
+            
+            if (data.error) {
+              console.error("Erro da API da OpenAI:", data.error);
+              return;
+            }
+            
+            const reviewComment = data.choices[0].message.content;
+            
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `### 🤖 Revisão do OpenAI (Code-Corretor)\n\n${reviewComment}`
+            });
+
