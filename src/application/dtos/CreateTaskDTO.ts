@@ -6,5 +6,5 @@ export interface CreateTaskDTO {
     date: Date;
     checklist?: {id?: string, description: string, isCompleted: boolean}[];
     creatorId: string;
-    assignedId?: string;
+    assignedId: string;
 }
