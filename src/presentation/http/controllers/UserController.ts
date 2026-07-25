@@ -3,10 +3,21 @@ import { CreateUserUseCase } from "../../../application/use-cases/CreateUserUseC
 
 export class UserController {
     constructor(private createUserUseCase: CreateUserUseCase) { }
+    
     async createUser(req: Request, res: Response): Promise<void> {
         try {
-            const { id, email, displayName, password } = req.body
-            const user = await this.createUserUseCase.execute({ id, email, displayName, password })
+            // 1. Adicionamos o githubUsername na desestruturação do body
+            const { id, email, displayName, password, githubUsername } = req.body
+            
+            // 2. Passamos o githubUsername para o execute do UseCase
+            const user = await this.createUserUseCase.execute({ 
+                id, 
+                email, 
+                displayName, 
+                password, 
+                githubUsername 
+            })
+            
             res.status(201).json(user)
         } catch (error: any) {
             if (error.message === "User already exists") {
